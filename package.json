@@ -1,0 +1,18 @@
+{
+	"name": "turn-taking",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"astro": "^2.0.16",
+		"preact": "^10.7.3",
+		"@astrojs/preact": "^2.0.3",
+		"@preact/signals": "^1.1.0"
+	}
+}
