@@ -1,0 +1,48 @@
+---
+import "@fontsource/finlandica";
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta
+      name="description"
+      content="Sorts out the speaking time and the duration of the daily routine"
+    />
+    <meta name="keywords" content="daily, scrum, work" />
+    <meta name="author" content="Antonio Galindo" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@galindosvq" />
+    <meta name="twitter:creator" content="@galindosvq" />
+    <meta
+      name="twitter:title"
+      content="Turn-Taking: Sorts out the speaking time"
+    />
+    <meta
+      name="twitter:description"
+      content="Sorts out the speaking time and the duration of the daily routine"
+    />
+    <meta name="og:title" content="Turn-Taking: Sorts out the speaking time" />
+    <meta
+      name="og:description"
+      content="Sorts out the speaking time and the duration of the daily routine"
+    />
+    <meta name="og:site_name" content="Turn-Taking" />
+    <meta name="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-background text-primary text-base scroll-smooth">
+    <main
+      class="flex flex-col items-center border-red-500 border-2 border-solid"
+    >
+      <slot />
+    </main>
+  </body>
+</html>
