@@ -1,10 +1,14 @@
+import type { JSXInternal } from "preact/src/jsx";
+
 type Props = {
   text: string;
+  onClick: JSXInternal.MouseEventHandler<HTMLButtonElement>;
 };
 
-export function Button({ text }: Props) {
+export function Button({ text, onClick }: Props) {
   return (
     <button
+      onClick={onClick}
       class="
     bg-bgShade2
     text-primary
