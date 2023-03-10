@@ -2,6 +2,8 @@
 import "@fontsource/finlandica";
 
 const { title } = Astro.props;
+
+const ogImage = "https://turn-taking.vercel.app/og.jpg";
 ---
 
 <!DOCTYPE html>
@@ -27,6 +29,8 @@ const { title } = Astro.props;
       name="twitter:description"
       content="Sorts out the speaking time and the duration of the daily routine"
     />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="og:image" content={ogImage} />
     <meta name="og:title" content="Turn-Taking: Sorts out the speaking time" />
     <meta
       name="og:description"
@@ -38,8 +42,8 @@ const { title } = Astro.props;
     <meta name="googlebot" content="index, follow" />
     <title>{title}</title>
   </head>
-  <body class="bg-background text-primary text-base scroll-smooth">
-    <main class="flex flex-col items-center">
+  <body class="bg-background text-primary text-base scroll-smooth px-4 md:px-0">
+    <main class="flex flex-col items-start md:items-center pt-4">
       <slot />
     </main>
   </body>

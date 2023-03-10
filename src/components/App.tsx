@@ -4,9 +4,9 @@ import { List } from "./List";
 import { Textbox } from "./Textbox";
 
 export function App() {
-  const [textareaValue, setTextareaValue] = useState("");
+  const [textareaValue, setTextareaValue] = useState<string>("");
   const [suffledList, setSuffledList] = useState<string[]>([]);
-  const [randomized, setRandomized] = useState(false);
+  const [randomized, setRandomized] = useState<boolean>(false);
 
   const handleOnCLick = () => {
     const formattedValue = formatterList(textareaValue);

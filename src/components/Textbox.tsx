@@ -34,14 +34,19 @@ export function Textbox({ textareaValue, setTextareaValue, onClick }: Props) {
 
   return (
     <div class="flex flex-col gap-4 py-4">
+      <label for="list" class="text-primary hidden">
+        List
+      </label>
       <textarea
+        class="bg-bgShade text-primary rounded shadow-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75"
         cols={20}
-        rows={10}
         name="list"
         onInput={handleOnInput}
+        placeholder="Enter your list here"
+        rows={10}
         value={textareaValue}
-        class="bg-bgShade text-primary rounded shadow-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75"
-      ></textarea>
+        id="list"
+      />
       <Button text="Go!" onClick={onClick} />
     </div>
   );

@@ -1,11 +1,11 @@
 import type { JSXInternal } from "preact/src/jsx";
 
-type Props = {
+type Props = JSXInternal.HTMLAttributes<HTMLButtonElement> & {
   text: string;
   onClick: JSXInternal.MouseEventHandler<HTMLButtonElement>;
 };
 
-export function Button({ text, onClick }: Props) {
+export function Button({ text, onClick, ...rest }: Props) {
   return (
     <button
       onClick={onClick}
@@ -21,7 +21,10 @@ export function Button({ text, onClick }: Props) {
     focus-visible:ring-primary
     focus-visible:ring-opacity-75
     hover:bg-bgTint
-    hover:text-primary"
+    hover:text-primary
+    disabled:opacity-50
+    disabled:cursor-not-allowed"
+      {...rest}
     >
       {text}
     </button>
