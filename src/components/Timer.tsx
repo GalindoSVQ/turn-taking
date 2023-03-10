@@ -4,6 +4,7 @@ import {
   formatDate,
   getTotalSecondsFromDate,
 } from "src/utils";
+import { useConfetti } from "src/utils/hooks";
 import { Button } from "./Button";
 import { Progressbar } from "./Progressbar";
 
@@ -12,10 +13,15 @@ type Props = {
 };
 
 export function Timer({ time }: Props) {
+  const { startConfetti, stopConfetti } = useConfetti();
   const totalTime = new Date(0, 0, 0, 0, time, 0);
-  const [timeRemaining, setTimeRemaining] = useState<Date>(totalTime);
+
   const intervalId = useRef<number | null>(null);
-  const [audio] = useState(new Audio("./alarm.wav"));
+  const sound = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== "undefined" ? new Audio("./himno.mp3") : undefined
+  );
+
+  const [timeRemaining, setTimeRemaining] = useState<Date>(totalTime);
   const [leftSeconds, setleftSeconds] = useState<number | null>(null);
 
   const handleStartTimer = () => {
@@ -35,15 +41,27 @@ export function Timer({ time }: Props) {
     intervalId.current = null;
   };
 
-  const handleClickReset = () => {
+  const resetTimer = () => {
     intervalId.current && clearInterval(intervalId.current);
     intervalId.current = null;
+
     setTimeRemaining(totalTime);
   };
 
-  const handleAddAMinute = () => {
+  const handleClickReset = () => {
+    resetTimer();
+
+    if (sound.current) {
+      sound.current.pause();
+      sound.current.currentTime = 0;
+    }
+
+    stopConfetti();
+  };
+
+  const handleAdd30Seconds = () => {
     setTimeRemaining(
-      (prevTimeRemaining) => new Date(prevTimeRemaining.getTime() + 60000)
+      (prevTimeRemaining) => new Date(prevTimeRemaining.getTime() + 30000)
     );
   };
 
@@ -63,8 +81,9 @@ export function Timer({ time }: Props) {
     setleftSeconds(leftSeconds);
 
     if (minutes === 0 && seconds === 0) {
-      audio.play();
-      handleClickReset();
+      sound.current?.play();
+      startConfetti();
+      resetTimer();
     }
   }, [timeRemaining]);
 
@@ -81,7 +100,7 @@ export function Timer({ time }: Props) {
         <Button text="Start" onClick={handleStartTimer} />
         <Button text="Pause" onClick={handleClickPause} />
         <Button text="Reset" onClick={handleClickReset} />
-        <Button text="+1" onClick={handleAddAMinute} />
+        <Button text="+30'" onClick={handleAdd30Seconds} disabled={true} />
       </div>
     </>
   );

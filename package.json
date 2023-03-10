@@ -14,7 +14,9 @@
 		"@astrojs/tailwind": "^3.0.1",
 		"@fontsource/finlandica": "^4.5.3",
 		"@preact/signals": "^1.1.0",
+		"@types/canvas-confetti": "^1.6.0",
 		"astro": "^2.0.16",
+		"canvas-confetti": "^1.6.0",
 		"preact": "^10.7.3",
 		"tailwindcss": "^3.0.24"
 	}
