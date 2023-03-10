@@ -6,7 +6,7 @@ type Props = {
 
 export function List({ list }: Props) {
   return (
-    <>
+    <div class="flex flex-col justify-center items-center">
       <ol
         type="1"
         class="list-decimal list-inside flex flex-col gap-2 my-12 text-[#FFF5BE]"
@@ -18,6 +18,6 @@ export function List({ list }: Props) {
         ))}
       </ol>
       <Timer time={3} />
-    </>
+    </div>
   );
 }
