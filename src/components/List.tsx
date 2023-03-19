@@ -17,7 +17,7 @@ export function List({ list }: Props) {
           </li>
         ))}
       </ol>
-      <Timer time={3} />
+      <Timer minutes={3} />
     </div>
   );
 }

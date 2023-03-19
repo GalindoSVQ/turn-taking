@@ -18,6 +18,9 @@ module.exports = {
       fontFamily: {
         sans: ["Finlandica", ...defaultTheme.fontFamily.sans],
       },
+      transitionProperty: {
+        width: "width",
+      },
     },
   },
   plugins: [],
