@@ -1,14 +1,14 @@
 import confetti from "canvas-confetti";
 import { useCallback, useRef } from "preact/hooks";
 
-const duration = 5 * 1000;
+const defaultDuration = 5 * 1000;
 const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
 function randomInRange(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
-export function useConfetti() {
+export function useConfetti(duration: number = defaultDuration) {
   const confettiIntervalId = useRef<number | null>(null);
 
   const startConfetti = () => {
