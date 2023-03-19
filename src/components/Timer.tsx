@@ -1,28 +1,25 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import {
-  calculateLeftPercentage,
-  formatDate,
-  getTotalSecondsFromDate,
-} from "src/utils";
+import { formatDate } from "src/utils";
 import { useConfetti } from "src/utils/hooks";
 import { Button } from "./Button";
 import { Progressbar } from "./Progressbar";
 
 type Props = {
-  time: number;
+  minutes: number;
 };
 
-export function Timer({ time }: Props) {
+export function Timer({ minutes }: Props) {
   const { startConfetti, stopConfetti } = useConfetti();
-  const totalTime = new Date(0, 0, 0, 0, time, 0);
-
   const intervalId = useRef<number | null>(null);
   const sound = useRef<HTMLAudioElement | undefined>(
     typeof Audio !== "undefined" ? new Audio("./himno.mp3") : undefined
   );
 
+  const [totalTime, setTotalTime] = useState<Date>(
+    new Date(0, 0, 0, 0, minutes, 0)
+  );
   const [timeRemaining, setTimeRemaining] = useState<Date>(totalTime);
-  const [leftSeconds, setleftSeconds] = useState<number | null>(null);
+  const [pause, setPause] = useState(false);
 
   const handleStartTimer = () => {
     if (intervalId.current !== null) {
@@ -34,18 +31,22 @@ export function Timer({ time }: Props) {
         (prevTimeRemaining) => new Date(prevTimeRemaining.getTime() - 1000)
       );
     }, 1000);
+
+    setPause(false);
   };
 
   const handleClickPause = () => {
     intervalId.current && clearInterval(intervalId.current);
     intervalId.current = null;
+    setPause(true);
   };
 
   const resetTimer = () => {
     intervalId.current && clearInterval(intervalId.current);
     intervalId.current = null;
 
-    setTimeRemaining(totalTime);
+    setTimeRemaining(new Date(0, 0, 0, 0, minutes, 0));
+    setTotalTime(new Date(0, 0, 0, 0, minutes, 0));
   };
 
   const handleClickReset = () => {
@@ -57,9 +58,12 @@ export function Timer({ time }: Props) {
     }
 
     stopConfetti();
+    pause && setPause(false);
   };
 
   const handleAdd30Seconds = () => {
+    setTotalTime((prevTotalTime) => new Date(prevTotalTime.getTime() + 30000));
+
     setTimeRemaining(
       (prevTimeRemaining) => new Date(prevTimeRemaining.getTime() + 30000)
     );
@@ -76,9 +80,6 @@ export function Timer({ time }: Props) {
   useEffect(() => {
     const minutes = timeRemaining.getMinutes();
     const seconds = timeRemaining.getSeconds();
-    const leftSeconds = getTotalSecondsFromDate(timeRemaining);
-
-    setleftSeconds(leftSeconds);
 
     if (minutes === 0 && seconds === 0) {
       sound.current?.play();
@@ -89,18 +90,15 @@ export function Timer({ time }: Props) {
 
   return (
     <>
-      <h1 class="text-3xl">{formatDate(timeRemaining)}</h1>
-      <Progressbar
-        progress={calculateLeftPercentage(
-          leftSeconds,
-          getTotalSecondsFromDate(totalTime)
-        )}
-      />
+      <h1 class={`text-3xl ${pause ? "animate-bounce" : ""}`}>
+        {formatDate(timeRemaining)}
+      </h1>
+      <Progressbar totalTime={totalTime} timeRemaining={timeRemaining} />
       <div class="flex gap-4 my-4">
         <Button text="Start" onClick={handleStartTimer} />
-        <Button text="Pause" onClick={handleClickPause} />
+        <Button text="Pause" onClick={handleClickPause} disabled={pause} />
         <Button text="Reset" onClick={handleClickReset} />
-        <Button text="+30'" onClick={handleAdd30Seconds} disabled={true} />
+        <Button text="+30'" onClick={handleAdd30Seconds} />
       </div>
     </>
   );
