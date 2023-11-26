@@ -20,6 +20,7 @@ export function Timer({ minutes }: Props) {
   );
   const [timeRemaining, setTimeRemaining] = useState<Date>(totalTime);
   const [pause, setPause] = useState(false);
+  const [disabledSub30Seconds, setDisabledSub30Seconds] = useState(false);
 
   const handleStartTimer = () => {
     if (intervalId.current !== null) {
@@ -69,6 +70,21 @@ export function Timer({ minutes }: Props) {
     );
   };
 
+  const handleSub30Seconds = () => {
+    const minutes = timeRemaining.getMinutes();
+    const seconds = timeRemaining.getSeconds();
+
+    if (minutes === 0 && seconds <= 30) {
+      return;
+    }
+
+    setTotalTime((prevTotalTime) => new Date(prevTotalTime.getTime() - 30000));
+
+    setTimeRemaining(
+      (prevTimeRemaining) => new Date(prevTimeRemaining.getTime() - 30000)
+    );
+  };
+
   useEffect(() => {
     return () => {
       if (intervalId.current !== null) {
@@ -80,6 +96,12 @@ export function Timer({ minutes }: Props) {
   useEffect(() => {
     const minutes = timeRemaining.getMinutes();
     const seconds = timeRemaining.getSeconds();
+
+    if (minutes === 0 && seconds <= 30) {
+      setDisabledSub30Seconds(true);
+    } else {
+      setDisabledSub30Seconds(false);
+    }
 
     if (minutes === 0 && seconds === 0) {
       sound.current?.play();
@@ -98,6 +120,11 @@ export function Timer({ minutes }: Props) {
         <Button text="Start" onClick={handleStartTimer} />
         <Button text="Pause" onClick={handleClickPause} disabled={pause} />
         <Button text="Reset" onClick={handleClickReset} />
+        <Button
+          text="-30'"
+          onClick={handleSub30Seconds}
+          disabled={disabledSub30Seconds}
+        />
         <Button text="+30'" onClick={handleAdd30Seconds} />
       </div>
     </>
