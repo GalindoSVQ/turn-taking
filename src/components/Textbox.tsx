@@ -1,5 +1,5 @@
 import type { JSXInternal } from "preact/src/jsx";
-import { StateUpdater, useEffect, useState } from "preact/hooks";
+import { useEffect, type StateUpdater } from "preact/hooks";
 import { Button } from "./Button";
 import { formatterList } from "src/utils";
 

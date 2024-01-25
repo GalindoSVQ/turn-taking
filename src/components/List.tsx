@@ -1,8 +1,11 @@
+import ScheduleTime from "./ScheduleTime";
 import { Timer } from "./Timer";
 
 type Props = {
   list: string[];
 };
+
+const DEFAULT_TIME = 3;
 
 export function List({ list }: Props) {
   return (
@@ -17,7 +20,8 @@ export function List({ list }: Props) {
           </li>
         ))}
       </ol>
-      <Timer minutes={3} />
+      <Timer minutes={DEFAULT_TIME} />
+      <ScheduleTime turnTime={DEFAULT_TIME} listLength={list.length} />
     </div>
   );
 }
