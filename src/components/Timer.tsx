@@ -121,11 +121,11 @@ export function Timer({ minutes }: Props) {
         <Button text="Pause" onClick={handleClickPause} disabled={pause} />
         <Button text="Reset" onClick={handleClickReset} />
         <Button
-          text="-30'"
+          text='-30"'
           onClick={handleSub30Seconds}
           disabled={disabledSub30Seconds}
         />
-        <Button text="+30'" onClick={handleAdd30Seconds} />
+        <Button text='+30"' onClick={handleAdd30Seconds} />
       </div>
     </>
   );
