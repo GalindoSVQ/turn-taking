@@ -52,7 +52,7 @@ export function Textbox({
   }, [textareaValue]);
 
   return (
-    <div class="flex flex-col gap-4 py-4 w-3/4 px-4 md:px-0 md:w-1/5 justify-center items-center">
+    <div class="flex flex-col gap-4 py-4 w-3/4 md:w-1/5 justify-center items-center">
       <label for="list" class="text-primary hidden">
         List
       </label>
