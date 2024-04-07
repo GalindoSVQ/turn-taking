@@ -23,7 +23,9 @@ export function Button({ text, onClick, ...rest }: Props) {
     hover:bg-bgTint
     hover:text-primary
     disabled:opacity-50
-    disabled:cursor-not-allowed"
+    disabled:cursor-not-allowed
+    w-full
+    "
       {...rest}
     >
       {text}

@@ -3,11 +3,10 @@ import { Timer } from "./Timer";
 
 type Props = {
   list: string[];
+  time: number;
 };
 
-const DEFAULT_TIME = 3;
-
-export function List({ list }: Props) {
+export function List({ list, time }: Props) {
   return (
     <div class="flex flex-col justify-center items-center">
       <ol
@@ -20,8 +19,8 @@ export function List({ list }: Props) {
           </li>
         ))}
       </ol>
-      <Timer minutes={DEFAULT_TIME} />
-      <ScheduleTime turnTime={DEFAULT_TIME} listLength={list.length} />
+      <Timer minutes={time} />
+      <ScheduleTime turnTime={time} listLength={list.length} />
     </div>
   );
 }
