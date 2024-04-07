@@ -1,21 +1,40 @@
 import type { JSXInternal } from "preact/src/jsx";
-import { useEffect, type StateUpdater } from "preact/hooks";
+import {
+  useEffect,
+  useState,
+  type Dispatch,
+  type StateUpdater,
+} from "preact/hooks";
 import { Button } from "./Button";
 import { formatterList } from "src/utils";
+import { CounterSettings } from "./CounterSettings";
 
 const optionsStorageKey = "turn-taking-options";
 
 type Props = {
   textareaValue: string;
-  setTextareaValue: StateUpdater<string>;
-  onClick: JSXInternal.MouseEventHandler<HTMLButtonElement>;
+  setTextareaValue: Dispatch<StateUpdater<string>>;
+  handleGoButton: JSXInternal.MouseEventHandler<HTMLButtonElement>;
+  time: number;
+  setTime: Dispatch<StateUpdater<number>>;
 };
 
-export function Textbox({ textareaValue, setTextareaValue, onClick }: Props) {
+export function Textbox({
+  textareaValue,
+  setTextareaValue,
+  handleGoButton,
+  time,
+  setTime,
+}: Props) {
+  const [openCounterSettings, setOpenCounterSettings] = useState(false);
   const handleOnInput = (e: JSXInternal.TargetedEvent<HTMLTextAreaElement>) => {
     const { value } = e.target as HTMLTextAreaElement;
 
     setTextareaValue(value);
+  };
+
+  const handeCounterSettingsClick = () => {
+    setOpenCounterSettings((prev) => !prev);
   };
 
   useEffect(() => {
@@ -33,21 +52,30 @@ export function Textbox({ textareaValue, setTextareaValue, onClick }: Props) {
   }, [textareaValue]);
 
   return (
-    <div class="flex flex-col gap-4 py-4">
+    <div class="flex flex-col gap-4 py-4 w-3/4 px-4 md:px-0 md:w-1/5 justify-center items-center">
       <label for="list" class="text-primary hidden">
         List
       </label>
       <textarea
-        class="bg-bgShade text-primary rounded shadow-md p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75"
-        cols={20}
+        class="bg-bgShade text-primary rounded shadow-md p-2 w-full max-h-40 h-40 resize-none"
+        id="list"
         name="list"
         onInput={handleOnInput}
-        placeholder="Enter your list here"
-        rows={10}
+        placeholder="Enter your name list here"
+        style={{ fieldSizing: "content" }}
         value={textareaValue}
-        id="list"
       />
-      <Button text="Go!" onClick={onClick} />
+      <Button text="Counter Settings" onClick={handeCounterSettingsClick} />
+      <CounterSettings
+        open={openCounterSettings}
+        time={time}
+        setTime={setTime}
+      />
+      <Button
+        disabled={!textareaValue.length}
+        onClick={handleGoButton}
+        text="Go"
+      />
     </div>
   );
 }

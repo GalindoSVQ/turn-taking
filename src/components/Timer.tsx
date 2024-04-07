@@ -117,7 +117,11 @@ export function Timer({ minutes }: Props) {
       </h1>
       <Progressbar totalTime={totalTime} timeRemaining={timeRemaining} />
       <div class="flex gap-4 my-4">
-        <Button text="Start" onClick={handleStartTimer} />
+        <Button
+          text="Start"
+          onClick={handleStartTimer}
+          disabled={!!intervalId.current}
+        />
         <Button text="Pause" onClick={handleClickPause} disabled={pause} />
         <Button text="Reset" onClick={handleClickReset} />
         <Button

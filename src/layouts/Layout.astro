@@ -1,5 +1,8 @@
 ---
-import "@fontsource/finlandica";
+import '@fontsource/finlandica/400.css';
+import '@fontsource/finlandica/500.css';
+import '@fontsource/finlandica/600.css';
+import '@fontsource/finlandica/700.css';
 
 const { title } = Astro.props;
 
@@ -47,8 +50,8 @@ const ogImage = "https://turn-taking.vercel.app/og.jpg";
       src="//gc.zgo.at/count.js"
     ></script>
   </head>
-  <body class="bg-background text-primary text-base scroll-smooth px-4 md:px-0">
-    <main class="flex flex-col items-start md:items-center pt-4">
+  <body class="bg-background text-primary text-base scroll-smooth">
+    <main class="flex flex-col items-center pt-4">
       <slot />
     </main>
   </body>
